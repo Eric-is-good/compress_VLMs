@@ -14,3 +14,4 @@ I spent my final year of my undergraduate studies at NUS (National University of
 Here are some ideas from my senior [Gongfan Fang](https://fangggf.github.io/), he is the direct supervisor of my graduation project, I am very grateful to him.
 
 1. Inspired by [LLaVA](https://github.com/haotian-liu/LLaVA), We use [Sheared-LLaMA](https://github.com/princeton-nlp/LLM-Shearing) instead of the original language model.
+1. I finish the pretrain and finetune code in LLaVA file.

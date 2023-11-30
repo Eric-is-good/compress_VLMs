@@ -1,0 +1,40 @@
+#!/bin/bash
+
+deepspeed llava/train/train_mem.py \
+    --deepspeed /opt/data/private/eric/code/LLaVA/scripts/zero2.json \
+    --model_name_or_path /opt/data/private/eric/model/llama/Sheared-Llama-1.3b \
+    --version v1 \
+    --data_path /opt/data/private/eric/data/llava/665k_mix/llava_v1_5_mix665k.json \
+    --image_folder /opt/data/private/eric/data/llava/665k_mix/links \
+    --vision_tower /opt/data/private/eric/model/clip/clip-vit-large-patch14-336 \
+    --pretrain_mm_mlp_adapter /opt/data/private/eric/save_model/llava/pretrain/mm_projector.bin \
+    --mm_projector_type mlp2x_gelu \
+    --mm_vision_select_layer -2 \
+    --mm_use_im_start_end False \
+    --mm_use_im_patch_token False \
+    --image_aspect_ratio pad \
+    --group_by_modality_length True \
+    --bf16 True \
+    --bit 4 \
+    --quant_type nf4 \
+    --double_quant true \
+    --output_dir /opt/data/private/eric/save_model/llava/finetune_4 \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 4 \
+    --per_device_eval_batch_size 4 \
+    --gradient_accumulation_steps 8 \
+    --evaluation_strategy "no" \
+    --save_strategy "steps" \
+    --save_steps  1000 \
+    --save_total_limit 2 \
+    --learning_rate 2e-5 \
+    --weight_decay 0. \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type "cosine" \
+    --logging_steps 1 \
+    --tf32 True \
+    --model_max_length 2048 \
+    --gradient_checkpointing True \
+    --dataloader_num_workers 4 \
+    --lazy_preprocess True \
+    --report_to wandb 
